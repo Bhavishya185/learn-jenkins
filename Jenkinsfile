@@ -1,27 +1,29 @@
 pipeline {
-    agent any {
+    agent {
         label 'AGENT-1'
     }
     stages {
-        stage('Build') { 
+        stage('Build') {
             steps {
-            
                 sh 'echo This is Build'
-               
+                //sh 'sleep 10'
             }
         }
-        stage('Test') { 
+        stage('Test') {
             steps {
-                
-                   sh 'echo This is test'
-               
+                sh 'echo This is test'
+                sh 'env'
             }
         }
-        stage('Deploy') { 
+        stage('Deploy') {
+            when {
+                expression { env.GIT_BRANCH != "origin/main" }
+            }
             steps {
-                
-                   sh 'echo This is deploy'
-                //    error 'pipeline failed'
+
+                    sh 'echo This is deploy'
+                    //error 'pipeline failed'
+
                
             }
         }
@@ -29,13 +31,14 @@ pipeline {
     }
 
     post {
-        always {
-            echo "This section runs always"
+        always{
+            echo "This sections runs always"
+            
         }
         success{
             echo "This section run when pipeline success"
         }
-        failure {
+        failure{
             echo "This section run when pipeline failure"
         }
     }
