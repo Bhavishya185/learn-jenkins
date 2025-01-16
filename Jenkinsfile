@@ -25,7 +25,7 @@ pipeline {
             }
         }
     }
-ls cd ls c
+
 
     post {
         always {
