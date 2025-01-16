@@ -25,10 +25,12 @@ pipeline {
             }
         }
     }
+ls cd ls c
 
     post {
         always {
             echo "This section runs always"
+            deleteDir()
         }
         success{
             echo "This section run when pipeline is success"
